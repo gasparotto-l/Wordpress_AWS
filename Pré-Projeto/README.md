@@ -50,6 +50,7 @@ volumes:
   wordpress:
   db:
 ```
+## Containerzação
 - Agora de volta no terminal, vamos construir nosso container
 ```bash
 docker compose up -d
