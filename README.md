@@ -17,7 +17,7 @@
 ## Súmario do Projeto:
 
 - [Pré-Projeto]()
-    - Introdução, Testes Locais: Instalação do Wordpress, Conteirnização.
+    - Introdução, Requisitos, Testes Locais: Instalação do Wordpress, Conteirnização.
 - [Fase-Inicial]()
     - Criação da EC2, Configuração do User-data, Criação dos Security Groups.
 - [Fase-Média]()
