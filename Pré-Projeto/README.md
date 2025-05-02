@@ -49,6 +49,7 @@ services:
 volumes:
   wordpress:
   db:
+  
 ```
 ## Containerzação
 - Agora de volta no terminal, vamos construir nosso container
@@ -63,4 +64,4 @@ docker ps
 
 - IMAGEM
 
-- Perfeito, agora que testamos localmente podemos passar a pensar nisso na aws.
+- Perfeito, agora que testamos localmente, sabemos como utilizar o wordpress e coloca-lo num container docker.
