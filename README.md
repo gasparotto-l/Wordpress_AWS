@@ -17,15 +17,15 @@
 ## Súmario do Projeto:
 
 - [Pré-Projeto]()
-    - Introdução, Requisitos, Testes Locais: Instalação do Wordpress, Conteirnização.
-- [Fase-Inicial]()
-    - Criação da EC2, Configuração do User-data, Criação dos Security Groups.
-- [Fase-Média]()
-    - Criação do RDS, Criação do EFS, Acessando a EC2.
-- [Fase-Final]()
-    - Docker Compose, Criação do ELB.
+    - Info e Testes Locais.
+- [Primeira-Fase]()
+    - User-data, Security Groups e VPC.
+- [Segunda-Fase]()
+    - RDS e EFS.
+- [Terceira-Fase]()
+    - Launch Template, Load Balancer e Auto Scaling Groups.
 - [Pós-Projeto]()
-    - Conclusão, Observações e Agradecimentos
+    - Conclusão, Observações e Agradecimentos.
 
 ## Agradecimentos
 - Agradeço profundamente que possa prestigiar meu projeto dando um pouco da sua atenção, é muito importante pra mim.

@@ -3,122 +3,91 @@
 
 ## Security Groups
 
-### 🖥️ EC2 Pública
+## 1. 🖥️ EC2_SG (Instâncias EC2 - WordPress - Subnet Privada)
 
-#### INBOUND RULES
+### 📥 INBOUND RULES
 
-| TIPO | INTERVALO DE PORTAS | ORIGEM     |
-|------|----------------------|------------|
-| SSH  | 22                   | Meu IP     |
-| HTTP | 80                   | 0.0.0.0/0  |
+| Tipo | Porta | Origem   | Motivo                          |
+|------|-------|----------|---------------------------------|
+| HTTP | 80    | lb_SG    | Receber tráfego do Load Balancer |
+| SSH  | 22    | Seu IP (ou Bastion) | Acesso para manutenção     |
+| NFS  | 2049  | efs_SG   | Montagem do EFS                 |
 
-- SSH (porta 22) — Permite acesso via terminal apenas a partir do seu IP, garantindo maior segurança.  
-- HTTP (porta 80) — Libera acesso público à aplicação web hospedada na EC2.
+- **HTTP (80)** — Permite que o Load Balancer envie requisições web para a EC2.  
+- **SSH (22)** — Garante acesso remoto seguro, preferencialmente via Bastion Host ou IP fixo.  
+- **NFS (2049)** — Necessário para montar o volume EFS e armazenar arquivos do WordPress.
 
-#### OUTBOUND RULES
+### 📤 OUTBOUND RULES
 
-| TIPO           | INTERVALO DE PORTAS | DESTINO     |
-|----------------|----------------------|-------------|
-| Todo o tráfego | Tudo                 | 0.0.0.0/0   |
+| Tipo        | Porta | Destino     | Motivo                                                 |
+|-------------|-------|-------------|---------------------------------------------------------|
+| All traffic | All   | 0.0.0.0/0 (via NAT) | Permite atualizações, download de pacotes, acesso ao RDS etc. |
 
-- Permite que a EC2 acesse a internet (downloads, APIs externas etc).
+- O tráfego de saída via NAT Gateway permite atualizações e comunicação com outros serviços da AWS.
 
----
 
-### 🔒 EC2 Privada
+## 2. 🛢️ rds_SG (RDS - Banco de Dados - Subnet Privada)
 
-#### INBOUND RULES
+### 📥 INBOUND RULES
 
-| TIPO           | INTERVALO DE PORTAS | ORIGEM                      |
-|----------------|----------------------|-----------------------------|
-| SSH            | 22                   | SG da EC2 Pública           |
-| NFS            | 2049                 | SG do EFS                   |
-| HTTP           | 80                   | SG do ELB                   |
-| MYSQL/Aurora   | 3306                 | SG do RDS                   |
+| Tipo          | Porta | Origem  | Motivo                        |
+|---------------|-------|---------|-------------------------------|
+| MySQL/Aurora  | 3306  | ec2_SG  | Permitir acesso do WordPress |
 
-- SSH — Permite acesso somente pela EC2 pública (bastion host).  
-- NFS — Permite que a EC2 use o sistema de arquivos EFS.  
-- HTTP — Permite comunicação do Load Balancer com a aplicação.  
-- MySQL — Permite conexão da EC2 privada ao banco de dados RDS.
+- **MySQL (3306)** — Habilita a conexão da aplicação WordPress ao banco de dados RDS.
 
-#### OUTBOUND RULES
+### 📤 OUTBOUND RULES
 
-| TIPO           | INTERVALO DE PORTAS | DESTINO       |
-|----------------|----------------------|----------------|
-| HTTP           | 80                   | 0.0.0.0/0       |
-| MYSQL/Aurora   | 3306                 | SG do RDS       |
-| NFS            | 2049                 | SG do EFS       |
-| Todo o tráfego | Tudo                 | 0.0.0.0/0       |
+| Tipo          | Porta | Destino | Motivo                                                        |
+|---------------|-------|---------|----------------------------------------------------------------|
+| MySQL/Aurora  | 3306  | ec2_SG  | Responder requisições (por boas práticas, mesmo sendo stateful) |
 
-- Libera conexões da EC2 com internet e recursos internos como banco de dados e armazenamento.
+- Boa prática configurar explicitamente saída, mesmo sendo gerenciado de forma stateful.
 
----
 
-### 🛢️ RDS
+## 3. 📁 efs_SG (EFS - Subnet Privada)
 
-#### INBOUND RULES
+### 📥 INBOUND RULES
 
-| TIPO         | INTERVALO DE PORTAS | ORIGEM            |
-|--------------|----------------------|-------------------|
-| MYSQL/Aurora | 3306                 | SG da EC2 Privada |
+| Tipo | Porta | Origem  | Motivo                        |
+|------|-------|---------|-------------------------------|
+| NFS  | 2049  | ec2_SG  | Permitir montagem via NFS     |
 
-- Garante que apenas a EC2 privada tenha acesso ao banco, evitando acessos indevidos.
+- **NFS (2049)** — Habilita a EC2 a montar o EFS como volume compartilhado.
 
-#### OUTBOUND RULES
+### 📤 OUTBOUND RULES
 
-| TIPO           | INTERVALO DE PORTAS | DESTINO     |
-|----------------|----------------------|-------------|
-| Todo o tráfego | Tudo                 | 0.0.0.0/0   |
+| Tipo | Porta | Destino | Motivo                    |
+|------|-------|---------|---------------------------|
+| NFS  | 2049  | ec2_SG  | Comunicação bidirecional  |
 
-- Permite saída do RDS para resolver DNS, atualizações e outras necessidades internas.
+- Permite a troca de dados contínua entre EC2 e EFS de forma segura e eficiente.
 
----
 
-### 📁 EFS
 
-#### INBOUND RULES
+## 4. ⚖️ lb_SG (Classic Load Balancer - Subnet Pública)
 
-| TIPO | INTERVALO DE PORTAS | ORIGEM            |
-|------|----------------------|-------------------|
-| NFS  | 2049                 | SG da EC2 Privada |
+### 📥 INBOUND RULES
 
-- Permite que a EC2 privada monte e acesse o volume EFS.
+| Tipo | Porta | Origem     | Motivo                         |
+|------|-------|------------|--------------------------------|
+| HTTP | 80    | 0.0.0.0/0  | Receber tráfego da internet    |
 
-#### OUTBOUND RULES
+- **HTTP (80)** — Permite que usuários da internet acessem o site via Load Balancer.
 
-| TIPO           | INTERVALO DE PORTAS | DESTINO     |
-|----------------|----------------------|-------------|
-| Todo o tráfego | Tudo                 | 0.0.0.0/0   |
+### 📤 OUTBOUND RULES
 
-- Permite que o EFS responda e mantenha conexões com a EC2.
+| Tipo | Porta | Destino | Motivo                                 |
+|------|-------|---------|----------------------------------------|
+| HTTP | 80    | ec2_SG  | Encaminhar requisições para EC2s       |
 
----
+- Direciona as requisições dos usuários para as instâncias EC2 que executam o WordPress.
 
-### ⚖️ ELB (Load Balancer)
-
-#### INBOUND RULES
-
-| TIPO | INTERVALO DE PORTAS | ORIGEM     |
-|------|----------------------|------------|
-| HTTP | 80                   | 0.0.0.0/0  |
-
-- Permite que qualquer cliente da internet envie requisições HTTP ao ELB.
-
-#### OUTBOUND RULES
-
-| TIPO | INTERVALO DE PORTAS | DESTINO    |
-|------|----------------------|------------|
-| HTTP | 80                   | 0.0.0.0/0  |
-
-- Permite que o ELB encaminhe requisições para as instâncias EC2 privadas.
 
 
 ## Virtual Private Cloud(VPC)
 
 
+## Construindo e Testando User-data
 
-## EC2 com User-Data
-
-### Iniciando uma Instancia EC2
-
-### 
+##
