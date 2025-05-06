@@ -86,6 +86,11 @@
 
 
 ## Virtual Private Cloud(VPC)
+- Acesse o Console AWS e vá para a seção VPC.
+- Clique em Create VPC e selecione a opção VPC and more.
+- Crie uma VPC com 2 sub-redes públicas e 2 sub-redes privadas.
+- Selecione duas Availability Zones (AZs) e um NAT Gateway(1 per AZ).
+- Finalize a criação clicando em Create VPC.
 
 
 ## Construindo e Testando User-data
