@@ -1,4 +1,8 @@
 ## Launch Template
+- Acesse create launch template e vamos configurar
+- De um nome e descrição ao seu template
+- Selecione guidance para obter dicas caso queira utilizar esse template em um auto scaling group.
+
 ![image](https://github.com/user-attachments/assets/5b2ad149-f0db-4d50-9b7f-5744ce3edc3f)
 
 ![image](https://github.com/user-attachments/assets/42488e90-b514-471f-9fbe-e381f66b6afe)
