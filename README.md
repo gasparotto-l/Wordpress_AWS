@@ -16,17 +16,17 @@
 
 ## Súmario do Projeto:
 
-- [Pré-Projeto]()
+- [Pré-Projeto](https://github.com/gasparotto-l/Wordpress_AWS/tree/main/Pré-Projeto)
     - Info e Testes Locais.
-- [Primeira-Fase]()
+- [Primeira-Fase](https://github.com/gasparotto-l/Wordpress_AWS/tree/main/Primeira-Fase)
     - Security Groups e VPC.
-- [Segunda-Fase]()
+- [Segunda-Fase](https://github.com/gasparotto-l/Wordpress_AWS/tree/main/Segunda-Fase)
     - RDS e EFS.
-- [Terceira-Fase]()
+- [Terceira-Fase](https://github.com/gasparotto-l/Wordpress_AWS/tree/main/Terceira-Fase)
     - Launch Template, Load Balancer e Auto Scaling Groups.
-- [Quarta-Fase]()
+- [Quarta-Fase](https://github.com/gasparotto-l/Wordpress_AWS/tree/main/Quarta-Fase)
     - Testes e CloudWatch.
-- [Pós-Projeto]()
+- [Pós-Projeto](https://github.com/gasparotto-l/Wordpress_AWS/tree/main/Pós-Projeto)
     - Conclusão, Observações e Agradecimentos.
 
 ## Agradecimentos
