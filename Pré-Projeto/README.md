@@ -62,6 +62,7 @@ docker ps
 ```
 - Por último acesse o site online http://localhost:8080
 
-- IMAGEM
+![image](https://github.com/user-attachments/assets/6f3cc1a9-6aea-4f3a-8850-d938a5eaa392)
+
 
 - Perfeito, agora que testamos localmente, sabemos como utilizar o wordpress e coloca-lo num container docker.
