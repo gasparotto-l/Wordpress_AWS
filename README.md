@@ -3,7 +3,7 @@
 ## Info
 - Autor: Luiz H. Gasparotto
 - Data: Entre 28/04 e 09/05
-- Instrutor de Auxilio: Thiago Geremias de Oliveira
+- Tipo: Academico/Trabalho
 
 ## Descrição do Projeto
 - Instalação e configuração do DOCKER ou CONTAINERD no host EC2.
