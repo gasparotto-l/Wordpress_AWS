@@ -19,11 +19,13 @@
 - [Pré-Projeto]()
     - Info e Testes Locais.
 - [Primeira-Fase]()
-    - User-data, Security Groups e VPC.
+    - Security Groups e VPC.
 - [Segunda-Fase]()
     - RDS e EFS.
 - [Terceira-Fase]()
     - Launch Template, Load Balancer e Auto Scaling Groups.
+- [Quarta-Fase]()
+    - Testes e CloudWatch.
 - [Pós-Projeto]()
     - Conclusão, Observações e Agradecimentos.
 

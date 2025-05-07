@@ -10,7 +10,7 @@
 | Tipo | Porta | Origem   | Motivo                          |
 |------|-------|----------|---------------------------------|
 | HTTP | 80    | lb_SG    | Receber tráfego do Load Balancer |
-| SSH  | 22    | Seu IP (ou Bastion) | Acesso para manutenção     |
+| SSH  | 22    | Seu IP   | Acesso para manutenção     |
 | NFS  | 2049  | efs_SG   | Montagem do EFS                 |
 
 - **HTTP (80)** — Permite que o Load Balancer envie requisições web para a EC2.  
@@ -92,7 +92,5 @@
 - Selecione duas Availability Zones (AZs) e um NAT Gateway(1 per AZ).
 - Finalize a criação clicando em Create VPC.
 
+IMAGEM
 
-## Construindo e Testando User-data
-
-##
