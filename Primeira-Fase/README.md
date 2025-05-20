@@ -13,7 +13,8 @@
 | SSH  | 22    | Seu IP   | Acesso para manutenção     |
 | NFS  | 2049  | efs_SG   | Montagem do EFS                 |
 
-![image](https://github.com/user-attachments/assets/bcd334d4-8c9b-4ebc-88ee-2c300d9837d2)
+![Group 2](https://github.com/user-attachments/assets/23ccd54e-b775-445a-a2cf-0e7e2e87bdce)
+
 
 - **HTTP (80)** — Permite que o Load Balancer envie requisições web para a EC2.  
 - **SSH (22)** — Garante acesso remoto seguro, preferencialmente via Bastion Host ou IP fixo.  
